@@ -1,6 +1,7 @@
 # Mockery Helper
 A library to help you use [Mockery](https://github.com/mockery/mockery) in the best way possible.
 
+[![Build Status](https://travis-ci.org/davesweb/mockery-helper.svg?branch=master)](https://travis-ci.org/davesweb/mockery-helper)
 [![Latest Stable Version](https://poser.pugx.org/davesweb/mockery-helper/v/stable)](https://packagist.org/packages/davesweb/mockery-helper)
 [![Latest Unstable Version](https://poser.pugx.org/davesweb/mockery-helper/v/unstable)](https://packagist.org/packages/davesweb/mockery-helper)
 [![License](https://poser.pugx.org/davesweb/mockery-helper/license)](https://packagist.org/packages/davesweb/mockery-helper)
