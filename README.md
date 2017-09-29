@@ -7,12 +7,14 @@ A library to help you use [Mockery](https://github.com/mockery/mockery) in the b
 [![License](https://poser.pugx.org/davesweb/mockery-helper/license)](https://packagist.org/packages/davesweb/mockery-helper)
 [![composer.lock](https://poser.pugx.org/davesweb/mockery-helper/composerlock)](https://packagist.org/packages/davesweb/mockery-helper)
 
+Current stable version: 0.1.0
+
 ## Installation
 
 _Via composer:_
 
 ```
-composer require davesweb/mockery-helper:dev-master
+composer require davesweb/mockery-helper
 ```
 
 Use the `--dev` option if you only require your test dependencies in developer mode.
@@ -23,7 +25,7 @@ You can also add this package directly to your `composer.json` file. Add the fol
 to your `require` block, or `require-dev` block:
 
 ```
-"davesweb/mockery-helper": "dev-master"
+"davesweb/mockery-helper": "^0.1"
 ```
 
 Than run: 
