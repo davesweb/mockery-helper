@@ -12,6 +12,13 @@ trait UsesMockery
     use MockeryPHPUnitIntegration;
 
     /**
+     * Determine whether or not to allow the setting of non-existing methods via the method() method.
+     *
+     * @var bool
+     */
+    protected $allowNonExistingMethods = false;
+
+    /**
      * Method name helper.
      *
      * If you need to pass a method name to a Mockery expectation, use this method to do so. This method accepts a
@@ -20,8 +27,8 @@ trait UsesMockery
      *
      * This method also checks to see if the method actually exists, so you don't make any typos in your method name.
      *
-     * @param callable $callable A callable in the form of 'ClassName::method', [ClassName::class, 'method'] or
-     *                           [$object, 'method'].
+     * @param callable $callable a callable in the form of 'ClassName::method', [ClassName::class, 'method'] or
+     *                           [$object, 'method']
      *
      * @throws InvalidArgumentException
      * @throws ReflectionException
@@ -30,7 +37,7 @@ trait UsesMockery
      */
     public function method($callable): string
     {
-        if (is_string($callable) && strstr($callable, '::') !== false) {
+        if (is_string($callable) && false !== strstr($callable, '::')) {
             $callable = explode('::', $callable);
         }
 
@@ -38,8 +45,16 @@ trait UsesMockery
             throw new InvalidArgumentException(sprintf('Provided callable is not a valid callable'));
         }
 
-        $reflection = new ReflectionMethod($callable[0], $callable[1]);
+        try {
+            $reflection = new ReflectionMethod($callable[0], $callable[1]);
 
-        return $reflection->name;
+            return $reflection->name;
+        } catch (ReflectionException $e) {
+            if ($this->allowNonExistingMethods) {
+                return $callable[1];
+            }
+
+            throw $e;
+        }
     }
 }
