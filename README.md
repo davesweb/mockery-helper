@@ -59,7 +59,7 @@ This trait provides the following methods.
 
 __method__
 
-Signature:
+_Signature:_
 ```php
 public function method(callable $callable): string
 ```
@@ -77,7 +77,7 @@ The callable can be passed in the form of `'ClassName::method'`, `[ClassName::cl
 
 The `method` method returns the name of the method.
 
-Example usage:
+_Example usage:_
 
 ```php
 <?php
@@ -105,4 +105,43 @@ class UsesMockeryTest extends TestCase
     }
 }
 ```
+
+_Skipping the check if a method exists._
  
+Sometimes you want to be able to skip the check if a method is actually defined on a class, while 
+still keeping the refactor options. This can happen for instance if you use the magic `__call()` method 
+to handle some method calls.
+
+In that case you can disable the check by overriding the `allowNonExistingMethods` property, or setting 
+it in your test:
+
+```php
+class UsesMockeryTest extends TestCase
+{
+    use UsesMockery;
+    
+    /**
+     * {@inheritdoc}
+     */
+    protected $allowNonExistingMethods = true;
+    
+    public function test_something()
+    {
+        // This entire test case won't check if methods exist.
+    }
+}
+```
+
+```php
+class UsesMockeryTest extends TestCase
+{
+    use UsesMockery;
+    
+    public function test_something()
+    {
+        $this->allowNonExistingMethods = true;
+        
+        // Only this test won't check if methods exist.
+    }
+}
+```
