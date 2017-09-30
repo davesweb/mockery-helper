@@ -147,3 +147,8 @@ class UsesMockeryTest extends TestCase
     }
 }
 ```
+
+## Contributing
+
+Thank you for taking the time to improve this package! If you want to contribute to this package, please 
+read to following file first: [Contributing](contributing.md).
