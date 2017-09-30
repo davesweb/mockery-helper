@@ -3,7 +3,9 @@
 namespace Davesweb\MockeryHelper;
 
 use InvalidArgumentException;
+use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\MockInterface;
 use ReflectionException;
 use ReflectionMethod;
 
@@ -56,5 +58,35 @@ trait UsesMockery
 
             throw $e;
         }
+    }
+
+    /**
+     * @param array ...$args
+     *
+     * @return MockInterface
+     */
+    public function mock(...$args): MockInterface
+    {
+        return call_user_func_array([Mockery::class, 'mock'], $args);
+    }
+
+    /**
+     * @param array ...$args
+     *
+     * @return MockInterface
+     */
+    public function spy(...$args): MockInterface
+    {
+        return call_user_func_array([Mockery::class, 'spy'], $args);
+    }
+
+    /**
+     * @param array ...$args
+     *
+     * @return MockInterface
+     */
+    public function namedMock(...$args): MockInterface
+    {
+        return call_user_func_array([Mockery::class, 'namedMock'], $args);
     }
 }
