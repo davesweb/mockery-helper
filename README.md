@@ -28,7 +28,7 @@ to your `require` block, or `require-dev` block:
 "davesweb/mockery-helper": "^0.1"
 ```
 
-Than run: 
+Then run: 
 ```
 composer update davesweb/mockery-helper
 ``` 
@@ -88,6 +88,7 @@ namespace My\Tests;
 
 use Davesweb\MockeryHelper\UsesMockery;
 use PHPUnit\Framework\TestCase;
+use Some\Package\MyDependency;
 
 class UsesMockeryTest extends TestCase
 {
