@@ -149,6 +149,24 @@ class UsesMockeryTest extends TestCase
 }
 ```
 
+You can also set the check per method call by adding a second parameter to the `method` call. Set it to `true` to 
+enforce the check, even if the global setting is to skip to check. Or set it to `false` to skip the check just for that
+method call.
+
+```php
+class UsesMockeryTest extends TestCase
+{
+    use UsesMockery;
+    
+    public function test_something()
+    {        
+        $method = $this->method([MyDependency::class, 'someNonExistingMethod'], false);
+        
+        // Only the above call skips the check if the method exists
+    }
+}
+```
+
 ## Contributing
 
 Thank you for taking the time to improve this package! If you want to contribute to this package, please 
