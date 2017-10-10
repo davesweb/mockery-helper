@@ -25,7 +25,7 @@ You can also add this package directly to your `composer.json` file. Add the fol
 to your `require` block, or `require-dev` block:
 
 ```
-"davesweb/mockery-helper": "^0.1"
+"davesweb/mockery-helper": "^1.0"
 ```
 
 Then run: 
@@ -108,6 +108,36 @@ class UsesMockeryTest extends TestCase
     }
 }
 ```
+
+__mock__
+
+_Signature:_
+```php
+public function mock(...$args): MockInterface
+```
+
+This is an alias for the `Mockery::mock(...$args): MockerInterface` call. Check the Mockery documentation 
+on how to use this method.
+
+__spy__
+
+_Signature:_
+```php
+public function spy(...$args): MockInterface
+```
+
+This is an alias for the `Mockery::spy(...$args): MockerInterface` call. Check the Mockery documentation 
+on how to use this method.
+
+__namedMock__
+
+_Signature:_
+```php
+public function namedMock(...$args): MockInterface
+```
+
+This is an alias for the `Mockery::namedMock(...$args): MockerInterface` call. Check the Mockery documentation 
+on how to use this method.
 
 _Skipping the check if a method exists._
  
