@@ -88,6 +88,42 @@ class UsesMockeryTest extends TestCase
         $this->assertEquals('Stub', $mockedObject->mockery_getName());
     }
 
+    public function test_method_uses_global_check_settings_allow_non_existing_is_true()
+    {
+        $this->allowNonExistingMethods = true;
+
+        $actualMethod = $this->method([StubClass::class, 'someNoneExistingMethod'], null);
+
+        $this->assertEquals('someNoneExistingMethod', $actualMethod);
+    }
+
+    public function test_method_uses_global_check_settings_allow_non_existing_is_false()
+    {
+        $this->allowNonExistingMethods = false;
+
+        $this->expectException(ReflectionException::class);
+
+        $this->method([StubClass::class, 'someNoneExistingMethod'], null);
+    }
+
+    public function test_method_overwrites_global_check_settings_for_check_is_true()
+    {
+        $this->allowNonExistingMethods = true;
+
+        $this->expectException(ReflectionException::class);
+
+        $this->method([StubClass::class, 'someNoneExistingMethod'], true);
+    }
+
+    public function test_method_overwrites_global_check_settings_for_check_is_false()
+    {
+        $this->allowNonExistingMethods = false;
+
+        $actualMethod = $this->method([StubClass::class, 'someNoneExistingMethod'], false);
+
+        $this->assertEquals('someNoneExistingMethod', $actualMethod);
+    }
+
     /**
      * @return array
      */

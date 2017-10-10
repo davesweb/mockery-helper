@@ -28,7 +28,7 @@ to your `require` block, or `require-dev` block:
 "davesweb/mockery-helper": "^0.1"
 ```
 
-Than run: 
+Then run: 
 ```
 composer update davesweb/mockery-helper
 ``` 
@@ -88,6 +88,7 @@ namespace My\Tests;
 
 use Davesweb\MockeryHelper\UsesMockery;
 use PHPUnit\Framework\TestCase;
+use Some\Package\MyDependency;
 
 class UsesMockeryTest extends TestCase
 {
@@ -144,6 +145,24 @@ class UsesMockeryTest extends TestCase
         $this->allowNonExistingMethods = true;
         
         // Only this test won't check if methods exist.
+    }
+}
+```
+
+You can also set the check per method call by adding a second parameter to the `method` call. Set it to `true` to 
+enforce the check, even if the global setting is to skip to check. Or set it to `false` to skip the check just for that
+method call.
+
+```php
+class UsesMockeryTest extends TestCase
+{
+    use UsesMockery;
+    
+    public function test_something()
+    {        
+        $method = $this->method([MyDependency::class, 'someNonExistingMethod'], false);
+        
+        // Only the above call skips the check if the method exists
     }
 }
 ```
