@@ -3,7 +3,9 @@
 namespace Davesweb\MockeryHelper;
 
 use InvalidArgumentException;
+use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\MockInterface;
 use ReflectionException;
 use ReflectionMethod;
 
@@ -27,15 +29,17 @@ trait UsesMockery
      *
      * This method also checks to see if the method actually exists, so you don't make any typos in your method name.
      *
-     * @param callable $callable a callable in the form of 'ClassName::method', [ClassName::class, 'method'] or
-     *                           [$object, 'method']
+     * @param callable $callable   a callable in the form of 'ClassName::method', [ClassName::class, 'method'] or
+     *                             [$object, 'method']
+     * @param bool     $testMethod Whether or not to check if the method actually exists on the object. Set to null to use
+     *                             the global setting.
      *
      * @throws InvalidArgumentException
      * @throws ReflectionException
      *
      * @return string
      */
-    public function method($callable): string
+    public function method($callable, bool $testMethod = null): string
     {
         if (is_string($callable) && false !== strstr($callable, '::')) {
             $callable = explode('::', $callable);
@@ -50,11 +54,41 @@ trait UsesMockery
 
             return $reflection->name;
         } catch (ReflectionException $e) {
-            if ($this->allowNonExistingMethods) {
+            if ((null === $testMethod && $this->allowNonExistingMethods) || false === $testMethod) {
                 return $callable[1];
             }
 
             throw $e;
         }
+    }
+
+    /**
+     * @param array ...$args
+     *
+     * @return MockInterface
+     */
+    public function mock(...$args): MockInterface
+    {
+        return call_user_func_array([Mockery::class, 'mock'], $args);
+    }
+
+    /**
+     * @param array ...$args
+     *
+     * @return MockInterface
+     */
+    public function spy(...$args): MockInterface
+    {
+        return call_user_func_array([Mockery::class, 'spy'], $args);
+    }
+
+    /**
+     * @param array ...$args
+     *
+     * @return MockInterface
+     */
+    public function namedMock(...$args): MockInterface
+    {
+        return call_user_func_array([Mockery::class, 'namedMock'], $args);
     }
 }

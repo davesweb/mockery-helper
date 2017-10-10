@@ -7,7 +7,7 @@ A library to help you use [Mockery](https://github.com/mockery/mockery) in the b
 [![License](https://poser.pugx.org/davesweb/mockery-helper/license)](https://packagist.org/packages/davesweb/mockery-helper)
 [![composer.lock](https://poser.pugx.org/davesweb/mockery-helper/composerlock)](https://packagist.org/packages/davesweb/mockery-helper)
 
-Current stable version: 0.1.0
+Current stable version: 1.0.0
 
 ## Installation
 
@@ -25,10 +25,10 @@ You can also add this package directly to your `composer.json` file. Add the fol
 to your `require` block, or `require-dev` block:
 
 ```
-"davesweb/mockery-helper": "^0.1"
+"davesweb/mockery-helper": "^1.0"
 ```
 
-Than run: 
+Then run: 
 ```
 composer update davesweb/mockery-helper
 ``` 
@@ -88,6 +88,7 @@ namespace My\Tests;
 
 use Davesweb\MockeryHelper\UsesMockery;
 use PHPUnit\Framework\TestCase;
+use Some\Package\MyDependency;
 
 class UsesMockeryTest extends TestCase
 {
@@ -107,6 +108,36 @@ class UsesMockeryTest extends TestCase
     }
 }
 ```
+
+__mock__
+
+_Signature:_
+```php
+public function mock(...$args): MockInterface
+```
+
+This is an alias for the `Mockery::mock(...$args): MockerInterface` call. Check the Mockery documentation 
+on how to use this method.
+
+__spy__
+
+_Signature:_
+```php
+public function spy(...$args): MockInterface
+```
+
+This is an alias for the `Mockery::spy(...$args): MockerInterface` call. Check the Mockery documentation 
+on how to use this method.
+
+__namedMock__
+
+_Signature:_
+```php
+public function namedMock(...$args): MockInterface
+```
+
+This is an alias for the `Mockery::namedMock(...$args): MockerInterface` call. Check the Mockery documentation 
+on how to use this method.
 
 _Skipping the check if a method exists._
  
@@ -147,3 +178,26 @@ class UsesMockeryTest extends TestCase
     }
 }
 ```
+
+You can also set the check per method call by adding a second parameter to the `method` call. Set it to `true` to 
+enforce the check, even if the global setting is to skip to check. Or set it to `false` to skip the check just for that
+method call.
+
+```php
+class UsesMockeryTest extends TestCase
+{
+    use UsesMockery;
+    
+    public function test_something()
+    {        
+        $method = $this->method([MyDependency::class, 'someNonExistingMethod'], false);
+        
+        // Only the above call skips the check if the method exists
+    }
+}
+```
+
+## Contributing
+
+Thank you for taking the time to improve this package! If you want to contribute to this package, please 
+read to following file first: [Contributing](contributing.md).
