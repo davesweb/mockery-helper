@@ -7,7 +7,7 @@ A library to help you use [Mockery](https://github.com/mockery/mockery) in the b
 [![License](https://poser.pugx.org/davesweb/mockery-helper/license)](https://packagist.org/packages/davesweb/mockery-helper)
 [![composer.lock](https://poser.pugx.org/davesweb/mockery-helper/composerlock)](https://packagist.org/packages/davesweb/mockery-helper)
 
-Current stable version: 0.1.0
+Current stable version: 1.0.0
 
 ## Installation
 
