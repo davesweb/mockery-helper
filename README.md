@@ -25,7 +25,7 @@ You can also add this package directly to your `composer.json` file. Add the fol
 to your `require` block, or `require-dev` block:
 
 ```
-"davesweb/mockery-helper": "^1.0"
+"davesweb/mockery-helper": "^1.1"
 ```
 
 Then run: 
